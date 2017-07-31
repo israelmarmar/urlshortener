@@ -1,0 +1,17 @@
+{
+  "name": "urlshortener",
+  "version": "0.0.1",
+  "author": "Israel Martins",
+  "description": "URL Shortener Microservice",
+  "engines": {
+    "node": "latest",
+    "npm": "latest"
+  },
+  "dependencies": {
+    "express": "latest",
+    "mongodb": "^2.2.30"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -55,16 +55,17 @@ router.get('/:shurl', function (req, res) {
 	MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   
-  if (isInteger(req.params.shurl))
-  var query = { _id: parseInt(req.params.shurl) };
-  else{
-	resp.json({"error":"This url is not on the database."});  
-	return;
-  }
+var query = { _id: parseInt(req.params.shurl) };
 
   db.collection("urls").find(query).toArray(function(err, result) {
     if (err) throw err;
-	console.log(result[0]["url"]);
+	
+	
+	if(result.length===0){
+	resp.json({"error":"This url is not on the database."});  
+	db.close();
+	return;
+  }
     resp.write("<script>");
   resp.write("location.href='"+result[0]["url"]+"'");
 	resp.write("</script>");

@@ -44,13 +44,23 @@ router.get('/new/https://:url', function (req, res) {
   });
 });
 
+function isInteger(n) { 
+      return !isNaN(parseInt(n))
+}
+
+
 router.get('/:shurl', function (req, res) {
 	var resp=res;
 	
 	MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   
+  if (isInteger(req.params.shurl))
   var query = { _id: parseInt(req.params.shurl) };
+  else{
+	resp.json({"error":"This url is not on the database."});  
+	return;
+  }
 
   db.collection("urls").find(query).toArray(function(err, result) {
     if (err) throw err;
